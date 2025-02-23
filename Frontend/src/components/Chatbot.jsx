@@ -23,7 +23,7 @@ export const Chatbot = () => {
           iconColor: 'white',
           customIconSrc: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg',
           autoWindowOpen: {
-            autoOpen: true,
+            autoOpen: false,
             openDelay: 2,
             autoOpenOnMobile: false
           }
@@ -101,7 +101,7 @@ export const Chatbot = () => {
             textColor: '#303235',
             text: 'Powered by',
             company: 'Krishiarya',
-            companyLink: 'https://flowiseai.com'
+            companyLink: 'http://localhost:5174/'
           }
         }
       }}

@@ -13,11 +13,11 @@ const farmerSchema=new mongoose.Schema({
     location:{
         city:{
             type:String,
-            required:true
+            
         },
         state:{
             type:String,
-            required:true
+            
         },
     },
     livestock:{
@@ -71,5 +71,5 @@ farmerSchema.statics.hashedPassword = async function(password){
     return await bcrypt.hash(password,12);
 }
 
-const farmerModel=new mongoose.Model('Farmer',farmerSchema);
+const farmerModel=new mongoose.model('Farmer',farmerSchema);
 module.exports=farmerModel;

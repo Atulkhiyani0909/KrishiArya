@@ -11,9 +11,12 @@ import CommunityPage from './pages/CommunityPage';
 import DiseasePredictorPage from './pages/DiseasePredictorPage.jsx';
 import { SignUp } from './pages/SignUp';
 import { SignIn } from './pages/SignIn';
+import { FarmerProvider } from './context/farmerContext.jsx'; // import FarmerProvider
+import Dashboard from './pages/profileFarmer.jsx'; // import Dashboard component
 
 function App() {
   return (
+    <FarmerProvider>
     <Router>
       <CartProvider>
         <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -28,6 +31,7 @@ function App() {
               <Route path="/disease-predictor" element={<DiseasePredictorPage />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
+              <Route path="/profile" element={<Dashboard />} />
             </Routes>
           </main>
           
@@ -36,6 +40,7 @@ function App() {
         </div>
       </CartProvider>
     </Router>
+    </FarmerProvider>
   );
 }
 
