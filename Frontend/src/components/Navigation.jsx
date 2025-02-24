@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useCart } from '../contexts/CartContext';
 import logo from '../components/logo.png';
 import { FarmerContext } from '../contexts/farmerContext';
+import axios from 'axios';
 
 export const Navigation = () => {
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
@@ -14,9 +15,12 @@ export const Navigation = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false); // Manage Account menu state
-  const location = useLocation();
+  // const location = useLocation();
   const { getCartCount, setIsCartOpen } = useCart();
-  const { farmer, logoutFarmer } = useContext(FarmerContext);
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    const [weatherData, setWeatherData] = useState('');
+  const { farmer, logoutFarmer} = useContext(FarmerContext);
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +47,24 @@ export const Navigation = () => {
     logoutFarmer();
     navigate('/');
   };
+
+    useEffect(() => {
+      // Fetch location data using Geolocation API
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const { latitude, longitude } = position.coords;
+        setLatitude(latitude);
+        setLongitude(longitude);
+  
+        // Call weather API
+        const weatherCall = async () => {
+          const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_OPENWEATHER_API_KEY}`);
+          console.log('Weather API response:', response.data);
+          setWeatherData(response.data.weather[0].main);
+        };
+        weatherCall();
+      });
+    }, []);
+
 
   const menuItems = [
     {
@@ -289,7 +311,9 @@ export const Navigation = () => {
                   </div>
                 </div>
               )}
+            
             </div>
+            
           </div>
         )}
       </div>

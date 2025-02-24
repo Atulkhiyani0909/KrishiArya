@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { X, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -9,14 +9,13 @@ import { FarmerContext } from '../contexts/farmerContext';
 export function SignUp() {
   const { t } = useTranslation();
   const { loginFarmer } = useContext(FarmerContext);
-  const [loader,setLoader]=useState(false);
+  const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
+
   const dummyData = {
     livestockOptions: [t('Cows'), t('Sheep'), t('Goats'), t('Chickens')],
     cropOptions: [t('Wheat'), t('Corn'), t('Rice'), t('Soybeans')],
   };
-
-
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     phone: '',
@@ -33,7 +32,7 @@ export function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  setLoader(true);
+    setLoader(true);
     const newFarmer = {
       Name: formData.name,
       livestock: formData.livestock,
@@ -41,30 +40,30 @@ export function SignUp() {
       mobNumber: formData.phone,
       cropsDetails: formData.crops,
     };
-  
+
     console.log('Request Payload:', newFarmer);
-  
+
     try {
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/farmers/register`, newFarmer);
-  
+
       if (response.status === 201) {
         const data = response.data;
         console.log('Response Data:', data);
         setLoader(false);
-  
+
         // Store the farmer data in localStorage
         localStorage.setItem('farmerData', JSON.stringify(data));
-  
-        // You can also update the context if you need to manage the logged-in state globally
-        // Assuming `loginFarmer` is a function in FarmerContext to set the farmer data in context:
-        loginFarmer(data);  // This will update context
-  
-        navigate('/services'); // Navigate to the next page (e.g., dashboard or services page)
+
+        // Update the context
+        loginFarmer(data);
+
+        navigate('/services'); // Navigate to the next page
       }
     } catch (error) {
       console.error('Error Response:', error.response);
+      setLoader(false);
     }
-  
+
     // Reset form data after submission
     setFormData({
       phone: '',
@@ -74,7 +73,6 @@ export function SignUp() {
       livestock: [],
     });
   };
-  
 
   const toggleDropdown = (field) => {
     setDropdownStates(prev => ({
@@ -100,22 +98,21 @@ export function SignUp() {
     }));
   };
 
-  
   return (
     <>
-     {loader && (
-  <div className="fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-75 z-50">
-    <div className="relative flex items-center justify-center">
-      {/* Rotating Circle */}
-      <div className="absolute w-20 h-20 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+      {loader && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-75 z-50">
+          <div className="relative flex items-center justify-center">
+            {/* Rotating Circle */}
+            <div className="absolute w-20 h-20 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+            
+            {/* Logo (Slightly Bigger & Static) */}
+            <img src={logo} alt="Loading" className="w-14 h-14" />
+          </div>
+        </div>
+      )}
       
-      {/* Logo (Slightly Bigger & Static) */}
-      <img src={logo} alt="Loading" className="w-14 h-14" />
-    </div>
-  </div>
-)}
       <div className="min-h-screen bg-gradient-to-br from-white to-green-50 px-4 py-8 pt-24">
-       
         <div className="container mx-auto max-w-7xl">
           <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl p-6 sm:p-8 md:p-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-[#16a34a] mb-8 text-center">{t('signup.title')}</h2>

@@ -26,6 +26,8 @@ export const FarmerProvider = ({ children }) => {
     localStorage.setItem('farmerData', JSON.stringify(farmerData)); // Store in localStorage
   };
 
+
+
   // Function to log out the farmer (clear context and localStorage)
   const logoutFarmer = () => {
     setFarmer(null); // Clear context state
