@@ -63,8 +63,8 @@ farmerSchema.methods.generateAuthToken = function() {
     );
 };
 
-farmerSchema.statics.comparePassword = async function(password , user_password){
-    return await bcrypt.compare(password,user_password);
+farmerSchema.statics.comparePassword = async function(password , farmer_password){
+    return await bcrypt.compare(password, farmer_password);
 }
 
 farmerSchema.statics.hashedPassword = async function(password){

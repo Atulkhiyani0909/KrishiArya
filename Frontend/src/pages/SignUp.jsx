@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../pages/logo.png';
-import { FarmerContext } from '../context/farmerContext';
+import { FarmerContext } from '../contexts/farmerContext';
 
 export function SignUp() {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ export function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+  setLoader(true);
     const newFarmer = {
       Name: formData.name,
       livestock: formData.livestock,
@@ -50,6 +50,7 @@ export function SignUp() {
       if (response.status === 201) {
         const data = response.data;
         console.log('Response Data:', data);
+        setLoader(false);
   
         // Store the farmer data in localStorage
         localStorage.setItem('farmerData', JSON.stringify(data));

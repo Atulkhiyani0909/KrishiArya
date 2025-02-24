@@ -1,24 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+import logo from '../pages/logo.png';
+import { FarmerContext } from '../contexts/farmerContext';
 
 
 export function SignIn() {
-     const { t } = useTranslation();
-
+  const { t } = useTranslation();
+  const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
+  const { loginFarmer } = useContext(FarmerContext);
   const [formData, setFormData] = useState({
-    phone: '',
+    mobNumber: '',
     password: ''
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setLoader(true);
+    const checkFarmer = {
+      password: formData.password,
+      mobNumber: formData.mobNumber,
+    };
+    console.log('Request Payload:', checkFarmer);
+
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/farmers/login`, checkFarmer);
+      console.log('Response:', response);
+      setLoader(false);
+      if (response.status === 200) {
+        const data = response.data;
+        console.log('Response Data:', data);
+        
+
+        // Store the farmer data in localStorage
+        localStorage.setItem('farmerData', JSON.stringify(data));
+
+        // Update the context
+        loginFarmer(data);
+
+        navigate('/services'); // Navigate to the next page
+      } else {
+        console.error('Unexpected response status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error Response:', error.response);
+      setLoader(false);
+    }
+
+    // Reset form data after submission
+    setFormData({
+      mobNumber: '',
+      password: '',
+    });
   };
 
   return (
+   
     <>
+
+      {loader && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-75 z-50">
+          <div className="relative flex items-center justify-center">
+            {/* Rotating Circle */}
+            <div className="absolute w-20 h-20 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+            
+            {/* Logo (Slightly Bigger & Static) */}
+            <img src={logo} alt="Loading" className="w-14 h-14" />
+          </div>
+        </div>
+      )}
       
       <div className="min-h-screen bg-gradient-to-br from-white to-green-50 px-4 py-8 pt-24">
         <div className="container mx-auto max-w-7xl">
@@ -36,8 +88,8 @@ export function SignIn() {
                     required
                     pattern="[0-9]{10}"
                     className="flex-1 px-3 sm:px-4 py-3 rounded-r-xl border-2 border-gray-200 focus:border-[#16a34a] focus:ring focus:ring-green-200 transition-colors text-sm sm:text-base"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    value={formData.mobNumber}
+                    onChange={(e) => setFormData({ ...formData, mobNumber: e.target.value })}
                   />
                 </div>
                 <p className="text-sm text-gray-500 mt-1">{t('signin.PhoneFormat')}</p>

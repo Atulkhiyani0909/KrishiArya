@@ -14,5 +14,11 @@ router.post('/register',[
 farmerController.registerFarmer,
 );
 
+router.post('/login',[
+    body('mobNumber').isLength({min:10},{max:10}).withMessage('Invalid mobNumber'),
+    body('password').isLength({min:6}).withMessage('Password must be at least 6 characters'),
+],
+farmerController.loginFarmer,
+);
 
 module.exports = router;
