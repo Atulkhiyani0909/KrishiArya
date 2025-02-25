@@ -13,6 +13,7 @@ import { SignUp } from './pages/SignUp';
 import { SignIn } from './pages/SignIn';
 import { FarmerProvider } from './contexts/farmerContext.jsx'; // import FarmerProvider
 import ProfileFarmer  from './pages/profileFarmer.jsx';
+import CropPrices from './pages/cropPrices.jsx';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/profile" element={<ProfileFarmer />} />
+              <Route path="/crop-prices" element={<CropPrices />} />
             </Routes>
           </main>
           

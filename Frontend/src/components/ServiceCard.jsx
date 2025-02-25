@@ -1,6 +1,7 @@
 import React from 'react';
 // Import motion for animations from framer-motion
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 // ServiceCard component that displays a service with an icon, title, and description
 export const ServiceCard = ({ title, description, icon: Icon, delay = 0, image }) => {
@@ -45,7 +46,7 @@ export const ServiceCard = ({ title, description, icon: Icon, delay = 0, image }
           whileHover={{ x: 5 }}
           transition={{ duration: 0.2 }}
         >
-          Learn more
+          <Link to={'/crop-prices'}>Learn More</Link>
           <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
