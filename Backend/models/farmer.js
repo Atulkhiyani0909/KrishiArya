@@ -10,16 +10,6 @@ const farmerSchema=new mongoose.Schema({
             required:true,
             minlength:[3,'First name must be at least 3 characters long'],
         },
-    location:{
-        city:{
-            type:String,
-            
-        },
-        state:{
-            type:String,
-            
-        },
-    },
     livestock:{
         type:Array,
         required:true,

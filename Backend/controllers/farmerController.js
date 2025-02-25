@@ -24,9 +24,11 @@ module.exports.registerFarmer=async (req,res,next)=>{
            livestock:livestock,
            cropsDetails:cropsDetails,
        });
-       const token = await newFarmer.generateAuthToken;//we are caling it on the name of the user so .call(user) because it is static method     //generating the token from the function we wrote in the userModel
-      
-      res.status(201).json({newFarmer,token});//if no error then we will send the user and the token to the client
+       const id=newFarmer._id;
+       console.log(id);
+       const token = await newFarmer.generateAuthToken();//we are caling it on the name of the user so .call(user) because it is static method     //generating the token from the function we wrote in the userModel
+      console.log(token);
+      res.status(201).json({id,token});//if no error then we will send the user and the token to the client
    }
 
    module.exports.loginFarmer=async (req,res,next)=>{
@@ -38,7 +40,7 @@ module.exports.registerFarmer=async (req,res,next)=>{
 
         const {mobNumber,password}=req.body;//if no error
         const farmer =await farmerModel.findOne({mobNumber}).select('+password');//finding the user by the email
-       console.log(farmer);
+        const id=farmer._id.toString()
          if(!farmer){
             return res.status(401).json({message:'Invalid monNumber or Password'});//if user not found
         }  
@@ -50,7 +52,15 @@ module.exports.registerFarmer=async (req,res,next)=>{
 
         const token = await farmer.generateAuthToken();//generating the token from the function we wrote in the userModel
         res.cookie('token',token);//setting the token in the cookie
-        res.status(200).json({farmer,token});//if no error then we will send the user and the token to
+        res.status(200).json({id,token});//if no error then we will send the user and the token to
     }
 
+    module.exports.profile=async (req,res,next)=>{
+        const {id}=req.params;
+       const data=await farmerModel.findById(id);
+       if(!data){
+            return res.status(404).json({message:'User not found'});//if user not found
+       }
+       res.status(200).json(data);
+    }
    

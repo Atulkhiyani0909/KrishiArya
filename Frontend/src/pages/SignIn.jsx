@@ -10,11 +10,16 @@ export function SignIn() {
   const { t } = useTranslation();
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
-  const { loginFarmer } = useContext(FarmerContext);
+  const { loginFarmer,farmer } = useContext(FarmerContext);
   const [formData, setFormData] = useState({
     mobNumber: '',
     password: ''
   });
+
+  if(farmer){
+    navigate('/profile');
+    return null;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

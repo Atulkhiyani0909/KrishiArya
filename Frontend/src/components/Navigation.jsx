@@ -233,7 +233,7 @@ export const Navigation = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="bg-red-600 w-17 h-11 text-white px-2 py-2 rounded-md hover:bg-red-700 transition-colors duration-200"
+                  className="bg-green-600 w-17 h-11 text-white px-2 py-2 rounded-md hover:bg-red-700 transition-colors duration-200"
                 >
                   Logout
                 </button>

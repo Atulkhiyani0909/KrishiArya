@@ -8,7 +8,7 @@ import { FarmerContext } from '../contexts/farmerContext';
 
 export function SignUp() {
   const { t } = useTranslation();
-  const { loginFarmer } = useContext(FarmerContext);
+  const { loginFarmer,farmer } = useContext(FarmerContext);
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
 
@@ -16,6 +16,11 @@ export function SignUp() {
     livestockOptions: [t('Cows'), t('Sheep'), t('Goats'), t('Chickens')],
     cropOptions: [t('Wheat'), t('Corn'), t('Rice'), t('Soybeans')],
   };
+
+  if(farmer){
+    navigate('/profile');
+    return null;
+  }
 
   const [formData, setFormData] = useState({
     phone: '',
@@ -41,11 +46,10 @@ export function SignUp() {
       cropsDetails: formData.crops,
     };
 
-    console.log('Request Payload:', newFarmer);
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/farmers/register`, newFarmer);
-
+      console.log('Response:', response);
       if (response.status === 201) {
         const data = response.data;
         console.log('Response Data:', data);
@@ -53,8 +57,9 @@ export function SignUp() {
 
         // Store the farmer data in localStorage
         localStorage.setItem('farmerData', JSON.stringify(data));
-
+        
         // Update the context
+        console.log(data);
         loginFarmer(data);
 
         navigate('/services'); // Navigate to the next page

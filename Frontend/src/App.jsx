@@ -12,7 +12,7 @@ import DiseasePredictorPage from './pages/DiseasePredictorPage.jsx';
 import { SignUp } from './pages/SignUp';
 import { SignIn } from './pages/SignIn';
 import { FarmerProvider } from './contexts/farmerContext.jsx'; // import FarmerProvider
-import FarmerProfile  from './components/FarmerProfile.jsx';
+import ProfileFarmer  from './pages/profileFarmer.jsx';
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
               <Route path="/disease-predictor" element={<DiseasePredictorPage />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
-              <Route path="/profile" element={<FarmerProfile />} />
+              <Route path="/profile" element={<ProfileFarmer />} />
             </Routes>
           </main>
           

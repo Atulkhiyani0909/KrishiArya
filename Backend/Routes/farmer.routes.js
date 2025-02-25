@@ -21,4 +21,8 @@ router.post('/login',[
 farmerController.loginFarmer,
 );
 
+
+router.get('/profile/:id',
+    farmerController.profile,
+);
 module.exports = router;
