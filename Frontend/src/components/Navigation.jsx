@@ -83,9 +83,9 @@ export const Navigation = () => {
       path: '/community',
     },
     {
-      label: t('navigation.diseasePredictor'),
+      label: t('navigation.Knowledgehub'),
       icon: <Stethoscope className="w-5 h-5" />,
-      path: '/disease-predictor',
+      path: '/educationhub',
     },
   ];
 

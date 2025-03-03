@@ -26,29 +26,17 @@ export const Services = () => {
   const { t } = useTranslation();
 
   const services = [
-    {
-      icon: PlaneTakeoff,
-      title: t('services.droneSpray.title'),
-      description: t('services.droneSpray.description'),
-      image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-    },
+    // {
+    //   icon: PlaneTakeoff,
+    //   title: t('services.droneSpray.title'),
+    //   description: t('services.droneSpray.description'),
+    //   image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    // },
     {
       icon: Tractor,
       title: t('services.machineryStorage.title'),
       description: t('services.machineryStorage.description'),
       image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-    },
-    {
-      icon: Stethoscope,
-      title: t('services.veterinaryHelp.title'),
-      description: t('services.veterinaryHelp.description'),
-      image: 'https://thumbs.dreamstime.com/b/veterinary-help-animals-vector-silhouette-animals-35980074.jpg'
-    },
-    {
-      icon: Activity,
-      title: t('services.livestockDisease.title'),
-      description: t('services.livestockDisease.description'),
-      image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
     },
     {
       icon: Flask,

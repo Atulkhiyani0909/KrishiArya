@@ -8,7 +8,7 @@ import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import MarketplacePage from './pages/MarketplacePage';
 import CommunityPage from './pages/CommunityPage';
-import DiseasePredictorPage from './pages/DiseasePredictorPage.jsx';
+import EducationHub from './pages/EducationHub.jsx';
 import { SignUp } from './pages/SignUp';
 import { SignIn } from './pages/SignIn';
 import { FarmerProvider } from './contexts/farmerContext.jsx'; // import FarmerProvider
@@ -29,7 +29,7 @@ function App() {
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/marketplace" element={<MarketplacePage />} />
               <Route path="/community" element={<CommunityPage />} />
-              <Route path="/disease-predictor" element={<DiseasePredictorPage />} />
+              <Route path="/educationhub" element={<EducationHub />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/profile" element={<ProfileFarmer />} />
