@@ -11,9 +11,12 @@ function CropPrices() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoader(true);
+        
           let response =await axios.get(`https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=${import.meta.env.VITE_CROP_PRICES_API_KEY}&format=json&limit=70&filters%5Bstate.keyword%5D=${state}&filters%5Bdistrict%5D=${district}`);
+ 
           if(response.status===200){
             setLoader(false);
+            console.log(response);
             console.log(response.data.records);
             setcropprices(response.data.records);
             setDistrict('');
@@ -23,10 +26,12 @@ function CropPrices() {
           }
     }
     const stateDistricts = {
+        
         'Andhra Pradesh': ['Anantapur', 'Chittor', 'Cuddapah', 'Guntur', 'Kurnool', 'Nellore',
           'Visakhapatnam', 'West Godavari', 'East Godavari', 'Krishna'],
         'Chandigarh': ['Chandigarh'],
-        'Gujarat': ['Ahmedabad', 'Amreli', 'Anand', 'Banaskanth', 'Bharuch',
+        'Gujarat': ['Ahmedabad'
+        , 'Amreli', 'Anand', 'Banaskanth', 'Bharuch',
           'Bhavnagar', 'Dahod', 'Gandhinagar', 'Gir Somnath', 'Jamnagar',
           'Junagarh', 'Kachchh', 'Kheda', 'Mehsana', 'Morbi', 'Navsari',
           'Panchmahals', 'Patan', 'Porbandar', 'Rajkot', 'Sabarkantha',
@@ -87,7 +92,7 @@ function CropPrices() {
           value={state}
           onChange={(e) => {
             setState(e.target.value);
-            setDistrict(""); // Reset district when state changes
+            // Reset district when state changes
           }}
           className="w-full md:w-auto p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
