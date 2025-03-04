@@ -6,14 +6,15 @@ import { Footer } from './components/Footer';
 import { Chatbot } from './components/Chatbot';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
-import MarketplacePage from './pages/MarketplacePage';
+import Marketplace from './pages/Marketplace.jsx';
 import CommunityPage from './pages/CommunityPage';
 import EducationHub from './pages/EducationHub.jsx';
 import { SignUp } from './pages/SignUp';
 import { SignIn } from './pages/SignIn';
 import { FarmerProvider } from './contexts/farmerContext.jsx'; // import FarmerProvider
-import ProfileFarmer  from './pages/profileFarmer.jsx';
+import FarmerProfile  from './pages/FarmerProfile.jsx';
 import CropPrices from './pages/cropPrices.jsx';
+import ProductDetail from './pages/ProductDetail.jsx';
 
 function App() {
   return (
@@ -27,13 +28,14 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/services" element={<ServicesPage />} />
-              <Route path="/marketplace" element={<MarketplacePage />} />
+              <Route path="/marketplace" element={<Marketplace />} />
               <Route path="/community" element={<CommunityPage />} />
               <Route path="/educationhub" element={<EducationHub />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
-              <Route path="/profile" element={<ProfileFarmer />} />
+              <Route path="/profile" element={<FarmerProfile />} />
               <Route path="/crop-prices" element={<CropPrices />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
             </Routes>
           </main>
           
