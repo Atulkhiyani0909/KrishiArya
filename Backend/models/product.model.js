@@ -14,31 +14,40 @@ const productSchema=mongoose.Schema({
          required: true
         },
     category: {type: String,
+        enum: ['Vegetable', 'fruit', 'dairy'],
          required: true
         },
     image: {type: String,
          required: true
         },
-    companyName:{
+    owner:{
        type: mongoose.Schema.Types.ObjectId,
-       ref: 'Company'
+       ref: 'Farmer'
     },
     avablity:{
         type: Boolean,
         default: true
     },
     reviews: [{
-        rating: {type: Number, required: true},
-        comment: {type: String, required: true},
+        rating: {type: Number},
+        comment: {type: String},
         user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
     }],
     quantity:{
         type: Number,
         required: true
     },
-});
+    expiryDate:{
+        type: Date,
+        required: true
+    },
+    ManufacturedDate:{
+        type: Date,
+        required: true
+    }
+},{timestamps: true});
 
 
-const productModel=new mongoose.Model('Product', productSchema);
+const productModel=new mongoose.model('Product', productSchema);
 
 module.exports=productModel;

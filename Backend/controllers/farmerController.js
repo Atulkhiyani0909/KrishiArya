@@ -1,6 +1,7 @@
 const {validationResult} = require('express-validator');
-const farmerModel =require('../models/farmer');
+const farmerModel =require('../models/farmer.model');
 const farmerService=require('../Services/farmer.service');
+const productModel=require('../models/product.model');
 
 
 
@@ -13,7 +14,7 @@ module.exports.registerFarmer=async (req,res,next)=>{
     if(!error.isEmpty()){
         return res.status(400).json({error:error.array()});//we will get the error message in the error.array() that we wrote in the routes
     }
-       const {Name,mobNumber,password,livestock,cropsDetails}=req.body;//if no error 
+       const {Name,mobNumber,password,cropsDetails,productsListed}=req.body;//if no error 
 
        const hashedpassword=await  farmerModel.hashedPassword(password);//hashing the password from the function we wrote in the userModel
 
@@ -21,8 +22,8 @@ module.exports.registerFarmer=async (req,res,next)=>{
            Name:Name,
            mobNumber:mobNumber,
            password:hashedpassword,
-           livestock:livestock,
            cropsDetails:cropsDetails,
+           productsListed:productsListed,
        });
        const id=newFarmer._id;
        console.log(id);
@@ -56,11 +57,14 @@ module.exports.registerFarmer=async (req,res,next)=>{
     }
 
     module.exports.profile=async (req,res,next)=>{
-        const {id}=req.params;
-       const data=await farmerModel.findById(id);
+       const {id}=req.params;
+       const data=await farmerModel.findById(id).populate('productsListed');//for using the productlisted by farmer by the Id 
+       
        if(!data){
             return res.status(404).json({message:'User not found'});//if user not found
        }
        res.status(200).json(data);
     }
+
+
    

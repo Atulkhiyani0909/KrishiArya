@@ -1,8 +1,8 @@
-const farmerModel=require('../models/farmer');
+const farmerModel=require('../models/farmer.model');
 
 
 module.exports.createUser = async({
-    Name,mobNumber,password,livestock,cropsDetails
+    Name,mobNumber,password,cropsDetails,productsListed
 })=>{
     if(!Name || !mobNumber || !password){
         throw new Error('All fields are required');
@@ -12,8 +12,8 @@ module.exports.createUser = async({
         Name:Name,
         mobNumber:mobNumber,
         password:password,
-        livestock:livestock,
-        cropsDetails:cropsDetails
+        cropsDetails:cropsDetails,
+        productsListed:productsListed
     });
 
 return farmer;

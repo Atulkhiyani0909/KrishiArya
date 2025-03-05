@@ -5,15 +5,10 @@ const jwt=require('jsonwebtoken');
 // Connect to MongoDB
 const farmerSchema=new mongoose.Schema({
    
-        Name:{
+    Name:{
             type:String,
             required:true,
             minlength:[3,'First name must be at least 3 characters long'],
-        },
-    livestock:{
-        type:Array,
-        required:true,
-        default:[]
     },
     cropsDetails:{
         type:Array,
@@ -40,8 +35,14 @@ const farmerSchema=new mongoose.Schema({
         type:Array,
         required:true,
         default:[]
-    }
-});
+    },
+    productsListed:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Product',
+        }
+    ]
+},{timestamps:true});
 
 farmerSchema.methods.generateAuthToken = function() {
     const userType = 'farmer'; // This will represent that it's a farmer
