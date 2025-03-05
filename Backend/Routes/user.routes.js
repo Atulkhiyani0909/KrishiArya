@@ -11,4 +11,6 @@ router.post('/register',[
     userController.registerUser
 );
 
+router.get('/profile/:id',userController.profile);
+
 module.exports = router;
