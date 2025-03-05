@@ -13,7 +13,6 @@ export function SignUp() {
   const navigate = useNavigate();
 
   const dummyData = {
-    livestockOptions: [t('Cows'), t('Sheep'), t('Goats'), t('Chickens')],
     cropOptions: [t('Wheat'), t('Corn'), t('Rice'), t('Soybeans')],
   };
 
@@ -27,11 +26,9 @@ export function SignUp() {
     password: '',
     name: '',
     crops: [],
-    livestock: []
   });
 
   const [dropdownStates, setDropdownStates] = useState({
-    livestock: false,
     crops: false
   });
 
@@ -40,7 +37,6 @@ export function SignUp() {
     setLoader(true);
     const newFarmer = {
       Name: formData.name,
-      livestock: formData.livestock,
       password: formData.password,
       mobNumber: formData.phone,
       cropsDetails: formData.crops,
@@ -75,7 +71,6 @@ export function SignUp() {
       password: '',
       name: '',
       crops: [],
-      livestock: [],
     });
   };
 
@@ -154,58 +149,6 @@ export function SignUp() {
             </div>
 
             <div className="mt-8 space-y-6">
-              <div className="space-y-2">
-                <label className="block text-sm font-semibold text-gray-700">{t('signup.LiveStock')}</label>
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => toggleDropdown('livestock')}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 bg-white text-left flex justify-between items-center focus:border-[#16a34a] focus:ring focus:ring-green-200 transition-colors"
-                  >
-                    <span className="text-gray-700 text-sm sm:text-base">
-                      {formData.livestock.length > 0 
-                        ? formData.livestock.join(', ') 
-                        : t('signup.LiveStock')}
-                    </span>
-                    <ChevronDown className={`h-5 w-5 text-gray-500 transition-transform ${dropdownStates.livestock ? 'transform rotate-180' : ''}`} />
-                  </button>
-                  {dropdownStates.livestock && (
-                    <div className="absolute z-10 w-full mt-2 bg-white border-2 border-gray-200 rounded-xl shadow-lg max-h-60 overflow-auto">
-                      {dummyData.livestockOptions.map((option, index) => (
-                        <div
-                          key={index}
-                          onClick={() => handleOptionSelect('livestock', option)}
-                          className={`px-4 py-2 cursor-pointer hover:bg-green-50 flex justify-between items-center ${
-                            formData.livestock.includes(option) ? 'bg-green-50' : ''
-                          }`}
-                        >
-                          <span className="text-sm sm:text-base">{option}</span>
-                          {formData.livestock.includes(option) && (
-                            <X className="h-4 w-4 text-[#16a34a]" />
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  {formData.livestock.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {formData.livestock.map((item, index) => (
-                        <span
-                          key={index}
-                          className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-50 text-[#16a34a]"
-                        >
-                          {item}
-                          <X
-                            className="h-4 w-4 ml-2 cursor-pointer"
-                            onClick={() => removeSelection('livestock', item)}
-                          />
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">{t('signup.Crops')}</label>
                 <div className="relative">
